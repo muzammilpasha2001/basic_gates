@@ -10,6 +10,7 @@ if ($status) then
 	  echo "and_gate Passed"
 endif
 
+# Cemment for testing github
 cd ../or_gate/
 iverilog c.v tb.v
 ./a.out > current.rpt
