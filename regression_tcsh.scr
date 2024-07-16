@@ -1,0 +1,16 @@
+#! /usr/bin/tcsh -f
+
+foreach i ( and_gate or_gate not_gate )
+
+        cd $i
+        iverilog c.v tb.v
+        ./a.out > current.rpt
+        diff ./correct.rpt current.rpt > /dev/null
+        if ($status) then
+      		  echo "$i Failed"
+        else
+       		  echo "$i Passed"
+			endif
+      		  cd ..   
+end
+exit

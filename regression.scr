@@ -1,0 +1,58 @@
+#! /usr/bin/tcsh -f
+
+cd and_gate
+iverilog c.v tb.v
+./a.out > current.rpt
+diff ./correct.rpt current.rpt > /dev/null
+if ($status) then
+  echo "and_gate Failed"
+  else
+	  echo "and_gate Passed"
+endif
+
+cd ../or_gate/
+iverilog c.v tb.v
+./a.out > current.rpt
+diff ./correct.rpt current.rpt > /dev/null
+if ($status) then
+	echo "or_gate Failed"
+	else
+	echo "or_gate Passed"
+	endif
+
+cd ../not_gate/
+iverilog c.v tb.v
+./a.out > current.rpt
+diff ./correct.rpt current.rpt > /dev/null
+if ($status) then
+	echo "not_gate Failed"
+	else
+	echo "not_gate Passed"
+	endif
+	
+cd ../xor
+iverilog c.v tb.v
+./a.out > current.rpt
+diff ./correct.rpt current.rpt > /dev/null
+if ($status) then
+  echo "Xor_gate Failed"
+else
+  echo "Xor_gate Passed"
+endif
+
+pwd
+cd ..
+foreach i ( and_gate or_gate not_gate xor )
+	cd $i
+	iverilog c.v tb.v
+	./a.out > current.rpt
+	diff ./correct.rpt current.rpt > /dev/null
+	if($status) then
+				echo "$i Failed "
+			else
+			echo "$i Passed "
+		
+				endif
+			cd ..
+	end
+	exit 
